@@ -5,8 +5,6 @@ const cheerio = require('cheerio')
 const axios = require('axios')
 
 rp(helpers.url).then(response => {
-  //getHtmlForTesting(response) //This is optional - just for getting whole html page
-
   let $ = cheerio.load(response)
   $(helpers.classToFind).each((index, element) => {
     download(element.attribs['data-src'], index)
@@ -15,14 +13,6 @@ rp(helpers.url).then(response => {
 }).catch(err => {
   console.log(err)
 })
-
-const getHtmlForTesting = (data) => {
-  fs.writeFile('data/response-html.html', data, (err) => {
-    if(err) {
-      return console.log(err)
-    }
-  })
-}
 
 const download = (url, index) => {
   axios({
