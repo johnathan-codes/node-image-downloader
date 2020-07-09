@@ -1,15 +1,9 @@
 const fs = require('fs')
-const cheerio = require('cheerio')
-const got = require('got')
+const rp = require('request-promise');
+const helpers = require('./data/constants')
 
-const constants = require('./data/constants')
-console.log('url', constants.url)
-
-got(constants.url).then(response => {
-  // console.log('response', response.body)
-  // fs.writeFile('response-body.html', response.body, (err) => {if(err) return console.log(err); console.log('Done!')})
-  // const $ = cheerio.load(response.body)
-  // console.log($('img')[0].attribs)
+rp(helpers.url).then(response => {
+  fs.writeFile('data/response-body.html', response, (err) => {if(err) return console.log(err); console.log('Done!')})
 }).catch(err => {
   console.log(err)
 })

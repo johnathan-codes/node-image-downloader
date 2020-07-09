@@ -10,6 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "got": "^10.4.0"
+    "puppeteer": "^5.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   }
 }
