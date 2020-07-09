@@ -41,13 +41,13 @@ const download = (sourceUrl, url, index) => {
 
 const makeFolders = (folderName) => {
   if(!fs.existsSync('downloads')){
-    fs.mkdir('downloads', (err) => console.log('mkdir downloads - Error:', err.message))
+    fs.mkdir('downloads', (err) => console.log('mkdir downloads - Error:', err))
   } else {
     console.log('Folder "downloads" already exists. Skipped mkdir')
   }
 
   if(!fs.existsSync(`downloads/${folderName}`)){
-    fs.mkdir(`downloads/${folderName}`, (err) => console.log(`mkdir downloads/${folderName} - Error:`, err.message))
+    fs.mkdir(`downloads/${folderName}`, (err) => console.log(`mkdir downloads/${folderName} - Error:`, err))
   } else {
     console.log(`Folder "downloads/${folderName}" already exists. Skipped mkdir`)
   }
