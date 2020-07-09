@@ -16,14 +16,18 @@ rp(helpers.url).then(response => {
 })
 
 const download = (url, index) => {
-  axios({url, responseType: 'stream'}).then(response => {
-    new Promise((resolve, reject) => {
-      response.data
-        .pipe(fs.createWriteStream(`downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.jpg`))
-        .on('finish', () => resolve())
-        .on('error', err => reject(err))
+  if(fs.existsSync(`downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.jpg`)) {
+    console.log(`File "${helpers.url.split('/').pop()} - ${index}.jpg" already exists. Skipping.`)
+  } else {
+    axios({url, responseType: 'stream'}).then(response => {
+      new Promise((resolve, reject) => {
+        response.data
+          .pipe(fs.createWriteStream(`downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.jpg`))
+          .on('finish', () => resolve())
+          .on('error', err => reject(err))
+      })
     })
-  })
+  }
 }
 
 const makeFolders = (folderName) => {
