@@ -34,13 +34,13 @@
 
    ![fill-class](https://user-images.githubusercontent.com/42937562/87100119-dc257700-c24b-11ea-8f68-42e029f083b8.png)
 
-6. Check image `src` and `alt` attributes. Sometime it has`data-src` instead of `src`. Feel free to modify element attributes
+6. Check image `src` and `alt` attributes. Sometimes it has`data-src` instead of `src`. Feel free to modify element's attributes
 
    ![chech-img-attributes](https://user-images.githubusercontent.com/42937562/87100120-dc257700-c24b-11ea-85bb-caa1063addd1.png)
 
 7. Run `npm start` 
 
-8. If an error occur there will be a console output
+8. If an error occurred there will be a console output
 
    ![console-output](https://user-images.githubusercontent.com/42937562/87100121-dc257700-c24b-11ea-93ac-c44d7250a996.png)
 
