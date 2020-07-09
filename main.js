@@ -16,13 +16,16 @@ rp(helpers.url).then(response => {
 })
 
 const download = (url, index) => {
-  if(fs.existsSync(`downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.jpg`)) {
-    console.log(`File "${helpers.url.split('/').pop()} - ${index}.jpg" already exists. Skipping.`)
+  let fileName = `downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.${url.split('.').pop()}`
+
+  if(fs.existsSync(fileName)) {
+    console.log(`File "${fileName}" already exists. Skipping.`)
   } else {
+    // downloads/<url-pop> - <index>.<url-filetype>
     axios({url, responseType: 'stream'}).then(response => {
       new Promise((resolve, reject) => {
         response.data
-          .pipe(fs.createWriteStream(`downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.jpg`))
+          .pipe(fs.createWriteStream(fileName))
           .on('finish', () => resolve())
           .on('error', err => reject(err))
       })
