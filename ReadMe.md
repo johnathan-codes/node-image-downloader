@@ -4,7 +4,7 @@
 
    ![data-folder](https://user-images.githubusercontent.com/42937562/87100113-d9c31d00-c24b-11ea-8f54-e74ab8d27ce3.png)
 
-2. Create `constants.js` with this template:
+2. Create `constants.js` in the `data` folder with this template:
 
    ```javascript
    const urls = []
