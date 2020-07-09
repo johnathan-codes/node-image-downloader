@@ -21,3 +21,9 @@ module.exports = {
 
 script will create folder "downloads" if it does not exist already
 and subfolder for each url. 
+
+# TODO:
+- [x] - download images from url
+- [x] - download from multiple sources
+- [ ] - make script universal
+- [ ] - download by tag not class
