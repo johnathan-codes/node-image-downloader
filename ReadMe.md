@@ -19,3 +19,5 @@ module.exports = {
 }
 ```
 
+script will create folder "downloads" if it does not exist already
+and subfolder for each url. 
