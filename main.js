@@ -4,19 +4,25 @@ const helpers = require('./data/constants')
 const cheerio = require('cheerio')
 const axios = require('axios')
 
-rp(helpers.url).then(response => {
-  let $ = cheerio.load(response)
-  makeFolders(helpers.url.split('/').pop())
-  $(helpers.classToFind).each((index, element) => {
-    download(element.attribs['data-src'], index)
+main = () => {
+  helpers.urls.forEach(url => {
+    rp(url).then(response => {
+      let $ = cheerio.load(response)
+      makeFolders(url.split('/').pop())
+      $(helpers.classToFind).each((index, element) => {
+        if(typeof element.attribs['data-src'] === 'string'){
+          download(url, element.attribs['data-src'], index)
+        }
+      })
+      console.log(`Done downloading: ${url.split('/').pop()}`)
+    }).catch(err => {
+      console.log(err)
+    })
   })
-  console.log('Done downloading!')
-}).catch(err => {
-  console.log(err)
-})
+}
 
-const download = (url, index) => {
-  let fileName = `downloads/${helpers.url.split('/').pop()}/${helpers.url.split('/').pop()} - ${index}.${url.split('.').pop()}`
+const download = (sourceUrl, url, index) => {
+  let fileName = `downloads/${sourceUrl.split('/').pop()}/${sourceUrl.split('/').pop()} - ${index}.${url.split('.').pop()}`
 
   if(fs.existsSync(fileName)) {
     console.log(`File "${fileName}" already exists. Skipping.`)
@@ -35,14 +41,16 @@ const download = (url, index) => {
 
 const makeFolders = (folderName) => {
   if(!fs.existsSync('downloads')){
-    fs.mkdir('downloads', (err) => console.log('mkdir downloads - Error:', err))
+    fs.mkdir('downloads', (err) => console.log('mkdir downloads - Error:', err.message))
   } else {
     console.log('Folder "downloads" already exists. Skipped mkdir')
   }
 
   if(!fs.existsSync(`downloads/${folderName}`)){
-    fs.mkdir(`downloads/${folderName}`, (err) => console.log('mkdir downloads/dest - Error:', err))
+    fs.mkdir(`downloads/${folderName}`, (err) => console.log(`mkdir downloads/${folderName} - Error:`, err.message))
   } else {
     console.log(`Folder "downloads/${folderName}" already exists. Skipped mkdir`)
   }
 }
+
+main()
