@@ -42,6 +42,6 @@
 
 # TODO:
 - [x] - download images from url
-- [x] - download from multiple sources
 - [ ] - make script universal
 - [x] - download by tag not class
+- [x] - Use user input in console, users will not create and modify files (unless needed)
