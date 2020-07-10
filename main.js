@@ -1,23 +1,24 @@
 const fs = require('fs')
 const rp = require('request-promise')
-const helpers = require('./data/constants')
 const cheerio = require('cheerio')
 const axios = require('axios')
 
 main = () => {
-  helpers.urls.forEach(url => {
-    rp(url).then(response => {
-      let $ = cheerio.load(response)
-      makeFolders(url.split('/').pop())
-      $(`img${helpers.classToFind}`).each((index, element) => {
-        if(typeof element.attribs['src'] === 'string'){
-          download(url, element.attribs['src'], element.attribs['alt'])
-        }
-      })
-      console.log(`Done downloading: ${url.split('/').pop()}`)
-    }).catch(err => {
-      console.log(err)
+  const args = process.argv.slice(2);
+  const url = args[0]
+  const imgClass = args[1] !== undefined ? `.${args[1]}` : ''
+
+  rp(url).then(response => {
+    let $ = cheerio.load(response)
+    makeFolders(url.split('/').pop())
+    $(`img${imgClass}`).each((index, element) => {
+      if(typeof element.attribs['src'] === 'string'){
+        download(url, element.attribs['src'], element.attribs['alt'])
+      }
     })
+    console.log(`Done downloading: ${url.split('/').pop()}`)
+  }).catch(err => {
+    console.log(err)
   })
 }
 
